@@ -40,6 +40,17 @@ public sealed class PlayerCollectionTests
     }
 
     [Test]
+    public void FindHighestScore_ReturnsPlayerWithHighestScoreBelowMaxScore()
+    {
+        PlayerCollection collection = CreateCollection();
+
+        Player? player = collection.FindHighestScore(150);
+
+        Assert.That(player, Is.Not.Null);
+        Assert.That(player!.Id, Is.EqualTo(101));
+    }
+
+    [Test]
     public void FindHighestScore_ReturnsNullForEmptyCollection()
     {
         PlayerCollection collection = new(new List<Player>());

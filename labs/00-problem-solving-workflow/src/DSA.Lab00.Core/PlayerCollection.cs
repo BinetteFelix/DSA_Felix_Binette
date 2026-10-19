@@ -30,7 +30,7 @@ namespace DSA.Lab00
             return null;
         }
 
-        public Player? FindHighestScore()
+        public Player? FindHighestScore(params int[] maxScoreToCheck)
         {
             // TODO:
             // Return the player with the highest score.
@@ -45,8 +45,20 @@ namespace DSA.Lab00
                 {
                     if (player.Score > highestScore)
                     {
-                        highestScore = player.Score;
-                        highestScoringPlayer = player;
+                        if (maxScoreToCheck.Length > 0)
+                        {
+                            if (player.Score < maxScoreToCheck[0])
+                            {
+                                highestScore = player.Score;
+                                highestScoringPlayer = player;
+                            }
+                        }
+                        else
+                        {
+                            highestScore = player.Score;
+                            highestScoringPlayer = player;
+                        }
+                        
                     }
                 }
                 return highestScoringPlayer;
@@ -75,7 +87,6 @@ namespace DSA.Lab00
             }
             else
                 throw new ArgumentNullException(nameof(_players)); ;
-
 
             return existsInCollection; ;
         }

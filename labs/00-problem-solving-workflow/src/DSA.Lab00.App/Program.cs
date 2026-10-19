@@ -16,7 +16,7 @@ Console.WriteLine("DSA Lab 0 - baseline");
 Console.WriteLine();
 
 Player? player = collection.FindById(910);
-Player? highestScorePlayer = collection.FindHighestScore();
+Player? highestScorePlayer = collection.FindHighestScore(120);
 
 if (player != null)
 {
