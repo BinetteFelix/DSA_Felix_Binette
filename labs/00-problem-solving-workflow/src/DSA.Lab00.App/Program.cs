@@ -21,6 +21,7 @@ Player? highestScorePlayer = collection.FindHighestScore();
 if (player != null)
 {
     Console.WriteLine($"Found player {player.Name} with score {player.Score}.");
+    Console.WriteLine(collection.ContainsName("Amina"));
 }
 if (highestScorePlayer != null)
 {
