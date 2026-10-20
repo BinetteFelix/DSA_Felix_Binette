@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Xml.Linq;
 
 namespace DSA.Lab00
 {
@@ -30,63 +31,68 @@ namespace DSA.Lab00
             return null;
         }
 
-        public Player? FindHighestScore(params int[] maxScoreToCheck)
+        public Player? FindHighestScore(params int[] maxExclude)
         {
-            // TODO:
-            // Return the player with the highest score.
-            // Return null when the collection is empty.
-
             Player? highestScoringPlayer = null;
             int highestScore = 0;
 
-            if (_players.Count > 0)
+            if (_players.Count == 0)
+                return null;
+
+            foreach (Player player in _players)
             {
-                foreach (Player player in _players)
+                if (player.Score > highestScore)
                 {
-                    if (player.Score > highestScore)
+                    if (maxExclude.Length > 0)
                     {
-                        if (maxScoreToCheck.Length > 0)
-                        {
-                            if (player.Score < maxScoreToCheck[0])
-                            {
-                                highestScore = player.Score;
-                                highestScoringPlayer = player;
-                            }
-                        }
-                        else
+                        if (player.Score < maxExclude[0])
                         {
                             highestScore = player.Score;
                             highestScoringPlayer = player;
                         }
-                        
                     }
+                    else
+                    {
+                        highestScore = player.Score;
+                        highestScoringPlayer = player;
+                    }
+                        
                 }
-                return highestScoringPlayer;
             }
-            else
-                return null;
+            return highestScoringPlayer;
         }
 
-        public bool ContainsName(string name)
+        public bool ContainsNames(string[] names, params string[] excludeNames)
         {
-            // TODO:
-            // Return true when a player with exactly this name exists.
-            // Use case-sensitive comparison for this lab.
-
             bool existsInCollection = false;
 
-            if (_players.Count > 0)
+            if (_players.Count == 0)
+                throw new ArgumentNullException(nameof(_players));
+
+            foreach (Player player in _players)
             {
-                foreach (Player player in _players)
+                for (int i = 0; i < names.Length; i++)
                 {
-                    if (player.Name == name)
+                    if (player.Name == names[i] && excludeNames != null)
                     {
-                        existsInCollection = true;
+                        for (int j = 0; j < excludeNames.Length; j++)
+                        {
+                            if (player.Name != excludeNames[j])
+                                existsInCollection = true;
+                        }
+                    }
+                    else if (player.Name == names[i] && excludeNames == null)
+                    {
+                        for (int j = 0; j < names.Length; j++)
+                        {
+                            if (player.Name == names[i])
+                            {
+                                existsInCollection = true;
+                            }
+                        }
                     }
                 }
             }
-            else
-                throw new ArgumentNullException(nameof(_players)); ;
 
             return existsInCollection; ;
         }

@@ -65,7 +65,9 @@ public sealed class PlayerCollectionTests
     {
         PlayerCollection collection = CreateCollection();
 
-        bool contains = collection.ContainsName("Bo");
+        string[] namesToCheck = new string[1];
+        namesToCheck[0] = "Bo";
+        bool contains = collection.ContainsNames(namesToCheck);
 
         Assert.That(contains, Is.True);
     }
@@ -75,7 +77,9 @@ public sealed class PlayerCollectionTests
     {
         PlayerCollection collection = CreateCollection();
 
-        bool contains = collection.ContainsName("Eli");
+        string[] namesToCheck = new string[1];
+        namesToCheck[0] = "Bo";
+        bool contains = collection.ContainsNames(namesToCheck);
 
         Assert.That(contains, Is.False);
     }
